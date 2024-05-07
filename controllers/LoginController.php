@@ -3,6 +3,7 @@ namespace Controllers;
 
 use Classes\Email;
 use MVC\Router;
+//use Model\Usuario;
 use Model\Usuario;
 
 class LoginController {
@@ -68,6 +69,7 @@ class LoginController {
             $auth = new Usuario($_POST);
             $alertas = $auth->validarEmail();
             if(empty($alertas)) {
+                $usuario = Usuario::where('email', $auth->email);
                 $usuario = Usuario::where('email', $auth->email);
                 if($usuario && $usuario->confirmado === "1") {
                     //Generar un token
